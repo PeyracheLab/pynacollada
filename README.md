@@ -1,2 +1,2 @@
 # pynacollada
-High level pythons scripts based on pynapple for neural data analysis
+Collaborative platform for high-level analysis with pynapple. 
