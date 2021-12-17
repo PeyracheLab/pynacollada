@@ -72,7 +72,6 @@ binSleep = binnedSpk.restrict(sleepEp).values
 zSpkSleep = StandardScaler().fit_transform(binSleep)
 
 # We project onto the first three PCs
-
 reactPCA = np.zeros((zSpkSleep.shape[0],3))
     
 for n in range(3):
@@ -81,12 +80,13 @@ for n in range(3):
     #yes, some maths tricks here
     diagTerm = zSpkSleep*np.tile(pc,(zSpkSleep.shape[0],1))
     tmp = np.square(proj) - np.sum(np.square(diagTerm),axis=1)
-    reactPCA[:,n] = np.transpose(tmp);
+    reactPCA[:,n] = np.transpose(tmp)
+
+import sys
+sys.exit()
 
 # Here, it is time to transform the data back into tsdFrame.
-reactPCA = pd.DataFrame(data=reactPCA, index=binnedSpk.restrict(sleepEp).times(), columns=['PC1','PC2','PC3'])
-# and to pynapple (TsdFrame object) so that time units is a no brainer
-reactPCA = nap.TsdFrame(reactPCA)
+reactPCA = nap.TsdFrame(t=binnedSpk.restrict(sleepEp).times(), d=reactPCA, time_support=sleepEp, columns=['PC1','PC2','PC3'])
 
 
 # Plot reactivation strength during a subset of sleepPre
