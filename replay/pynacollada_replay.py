@@ -82,8 +82,6 @@ for n in range(3):
     tmp = np.square(proj) - np.sum(np.square(diagTerm),axis=1)
     reactPCA[:,n] = np.transpose(tmp)
 
-import sys
-sys.exit()
 
 # Here, it is time to transform the data back into tsdFrame.
 reactPCA = nap.TsdFrame(t=binnedSpk.restrict(sleepEp).times(), d=reactPCA, time_support=sleepEp, columns=['PC1','PC2','PC3'])
