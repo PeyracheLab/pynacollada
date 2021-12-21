@@ -4,12 +4,12 @@ Created on Thu Dec 16 23:56:35 2021
 @author: apeyra4
 """
 import pynapple as nap
-import pandas as pd
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
 import numpy as np
 
-def assemblyPCA(binnedSpk, epochRef, epochTest = None, method = 'marcenko', numComp = None):
+from sklearn.decomposition import PCA
+from sklearn.preprocessing import StandardScaler
+
+def assemblyPCA(spike_counts, epochRef, epochTest = None, method = 'marcenko', numComp = None):
     '''
     Parameters
     ----------
@@ -30,7 +30,7 @@ def assemblyPCA(binnedSpk, epochRef, epochTest = None, method = 'marcenko', numC
 
     '''
    
-    binRef = binnedSpk.restrict(epochRef).values
+    binRef = spike_counts.restrict(epochRef).values
     
     # Compute PCA
     comp = assemblyComp(binRef,method = method, numComp = numComp)
@@ -38,14 +38,14 @@ def assemblyPCA(binnedSpk, epochRef, epochTest = None, method = 'marcenko', numC
     print('PCA based assembly activation, using ' + str(numComp) + ' PCs\n')
 
     # Project test data onto Principal Components
-    assemblyAct = assemblyProj(comp, binnedSpk, epochTest);
+    assemblyAct = assemblyProj(comp, spike_counts, epochTest);
     
     return assemblyAct, comp
 
 
-def assemblyICA(binnedSpk, epochRef, epochTest = None, method = 'marcenko', numComp = 3):
+def assemblyICA(spike_counts, epochRef, epochTest = None, method = 'marcenko', numComp = 3):
     
-    binRef = binnedSpk.restrict(epochRef).values
+    binRef = spike_counts.restrict(epochRef).values
     
     # Compute PCA
     comp = assemblyComp(binRef,method = method, numComp = numComp)
@@ -57,10 +57,10 @@ def assemblyICA(binnedSpk, epochRef, epochTest = None, method = 'marcenko', numC
     print(type(assemblyAct[0]))
     return assemblyAct, comp
 
-def assemblyComp(binRef, method = 'marcenko', numComp = None):
+def assemblyComp(spike_counts, method = 'marcenko', numComp = None):
     
     pca = PCA()
-    zSpkRef = StandardScaler().fit_transform(binRef)
+    zSpkRef = StandardScaler().fit_transform(spike_counts)
     pca.fit(zSpkRef)
     
     if numComp is None:
@@ -76,18 +76,18 @@ def assemblyComp(binRef, method = 'marcenko', numComp = None):
     comp = pca.components_[:numComp,:]
     return comp
 
-def assemblyProj(comp, binnedSpk, epochTest = None):
+def assemblyProj(comp, spike_counts, epochTest = None):
     
    
     if epochTest is None:
-        activation = assemblyProj(comp, binnedSpk, epochTest=binnedSpk.time_support) 
+        activation = assemblyProj(comp, spike_counts, epochTest=spike_counts.time_support) 
 
     elif isinstance(epochTest,list):
         # If epochTest is a list of IntervalSet, it returns a list of TsdFrame
         assemblyAct = []
         for n in range(len(epochTest)):
             # If epochTest is a list of IntervalSet, we call it for each epoch
-            activation = assemblyProj(comp, binnedSpk.restrict(epochTest[n]), epochTest=epochTest[n]) 
+            activation = assemblyProj(comp, spike_counts.restrict(epochTest[n]), epochTest=epochTest[n]) 
             assemblyAct.append(activation)
             
     else:
@@ -100,7 +100,7 @@ def assemblyProj(comp, binnedSpk, epochTest = None):
             columnName.append("Comp%d" % k)
          
         #Z-score binned spike trains    
-        binTest = binnedSpk.values
+        binTest = spike_counts.values
         zSpk = StandardScaler().fit_transform(binTest)
         activation = np.zeros((zSpk.shape[0],comp.shape[0]))
         
@@ -110,7 +110,7 @@ def assemblyProj(comp, binnedSpk, epochTest = None):
             activation[:,k] = proj
   
         # we transform the dataFrame into a TsdFrame for compatibility with pynapple
-        assemblyAct = nap.TsdFrame(t = binnedSpk.restrict(epochTest).times(), d = activation, columns = columnName)   
+        assemblyAct = nap.TsdFrame(t = spike_counts.restrict(epochTest).times(), d = activation, columns = columnName)   
             
     return assemblyAct
 
