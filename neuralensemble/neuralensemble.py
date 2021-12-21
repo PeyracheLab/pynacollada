@@ -1,13 +1,13 @@
-# -*- coding: utf-8 -*-
 """
 Created on Thu Dec 16 23:56:35 2021
 
 @author: apeyra4
 """
 import pynapple as nap
-
+import pandas as pd
 from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
+import numpy as np
 
 def assemblyPCA(binnedSpk, epochRef, epochTest = None, method = 'marcenko', numComp = None):
     '''
@@ -33,8 +33,9 @@ def assemblyPCA(binnedSpk, epochRef, epochTest = None, method = 'marcenko', numC
     binRef = binnedSpk.restrict(epochRef).values
     
     # Compute PCA
-    comp = assemblyComp(binRef,method = method, numComp = cumComp)
+    comp = assemblyComp(binRef,method = method, numComp = numComp)
     numComp = comp.shape[0]
+    print('PCA based assembly activation, with ' + str(numComp) + ' PCs\n')
 
     # Project test data onto Principal Components
     assemblyAct = assemblyProj(comp, binnedSpk, epochTest);
@@ -47,12 +48,13 @@ def assemblyICA(binnedSpk, epochRef, epochTest = None, method = 'marcenko', numC
     binRef = binnedSpk.restrict(epochRef).values
     
     # Compute PCA
-    comp = assemblyComp(binRef,method = method, numComp = cumComp)
+    comp = assemblyComp(binRef,method = method, numComp = numComp)
     numComp = comp.shape[0]
     
     #Now compute ICA
     #TODO
-    
+    assemblyAct = []
+    print(type(assemblyAct[0]))
     return assemblyAct, comp
 
 def assemblyComp(binRef, method = 'marcenko', numComp = None):
@@ -61,7 +63,7 @@ def assemblyComp(binRef, method = 'marcenko', numComp = None):
     zSpkRef = StandardScaler().fit_transform(binRef)
     pca.fit(zSpkRef)
     
-    is numcomp is None
+    if numComp is None:
         if method == 'marcenko':
             b,n = zSpkRef.shape
             eigValUp = (1 + np.sqrt(b/n)) ** 2
@@ -78,41 +80,47 @@ def assemblyProj(comp, binnedSpk, epochTest = None):
     
     # Define the DataFram column names
     columnName = []
-    for k in range(numComp):
+    for k in range(len(comp)):
         columnName.append("Comp%d" % k)
-    
-    # Z-score binned spike train for each test epoch separately
-    zSpkTest = [];
-    
+     
     if epochTest is None:
         binTest = binnedSpk.values
-        zSpkTest.append(StandardScaler().fit_transform(binTest))
-        
-    else:
-        for n in range(len(epochTest)):
-            binTest = binnedSpk.restrict(epochTest[n]).values
-            zSpkTest.append(StandardScaler().fit_transform(binTest))
-    
-    for n in range(len(epoch)):
-        
-        activation = np.zeros((zSpkTest[n].shape[0],numComp));
-        zSpk = zSpkTest[n]
+        zSpk = StandardScaler().fit_transform(binTest)
+        activation = np.zeros((zSpk.shape[0],comp.shape[0]))
         
         for k in range(comp):
-            pc = comp[k,:]
-            proj = np.dot(zSpk,pc)
-            # some maths tricks here
-            diagTerm = zSpk*np.tile(pc,(zSpkS.shape[0],1))
-            tmp = np.square(proj) - np.sum(np.square(diagTerm),axis=1)
-            activation[:,k] = np.transpose(tmp);
-        
+            proj = noDiagProj(comp[k,:], zSpk)
+            activation[:,k] = proj
+  
         # we transform the dataFrame into a TsdFrame for compatibility with pynapple
-        activation = nap.TsdFrame(activation)
-        
-        # we append these assembly activation to assemblyAct
-        assemblyAct.append(activation)
-        
+        assemblyAct = nap.TsdFrame(activation)   
+            
+    else:
+        assemblyAct = []
+        for n in range(len(epochTest)):
+            
+            binTest = binnedSpk.restrict(epochTest[n]).values
+            zSpk = StandardScaler().fit_transform(binTest)
+            activation = np.zeros((zSpk.shape[0],comp.shape[0]))
+            
+            for k in range(comp.shape[0]):
+                proj = noDiagProj(comp[k,:], zSpk)
+                activation[:,k] = proj
+            
+            activation = nap.TsdFrame(t = binnedSpk.restrict(epochTest[n]).times(), d = activation, columns = columnName)
+            # we append these assembly activation to assemblyAct
+            assemblyAct.append(activation)
+            
     return assemblyAct
+
+def noDiagProj(pc,zSpk):
+    
+    proj = np.dot(zSpk,pc)
+    # some maths tricks here
+    diagTerm = zSpk*np.tile(pc,(zSpk.shape[0],1))
+    proj = np.square(proj) - np.sum(np.square(diagTerm),axis=1)
+    
+    return proj 
 
 def explainedVar(binnedSpk, epochRef, epoch1, epoch2):
     
