@@ -8,7 +8,6 @@ Created on Tue Dec 21 14:53:21 2021
 
 import pynapple as nap
 import pandas as pd
-from sklearn.decomposition import PCA
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
