@@ -15,9 +15,6 @@ import numpy as np
 import seaborn as sns; sns.set_theme()
 import matplotlib.pyplot as plt
 
-from sklearn.decomposition import PCA
-from sklearn.preprocessing import StandardScaler
-
 from scipy import stats
 
 from neuralensemble import assemblyPCA
@@ -46,13 +43,12 @@ spikeGrp = nap.TsGroup(data = spikes, time_support = sessionEpoch)
 #We can immediately bin the spike trains (here in 100ms bins)
 binnedSpk = spikeGrp.count(0.1)
 
-### Nw using the neuralensemble module
 epochTest = [];
 epochTest.append(nap.IntervalSet(start = [1100,1300], end = [1200,1350], time_units = 's'))
 epochTest.append(sleepEp.intersect(nremEp))
-reactPCA, comp = assemblyPCA(binnedSpk, wakeEpoch, epochTest = epochTest, method = None, numComp = 3)
 
-print(type(reactPCA[0]))
+### Nw using the neuralensemble module
+reactPCA, comp = assemblyPCA(binnedSpk, wakeEpoch, epochTest = epochTest, method = None, numComp = 3)
 
 fig, axes = plt.subplots(2, 1, figsize=(10, 10))
 sns.lineplot(ax = axes[0], data=reactPCA[0].as_units('s'))

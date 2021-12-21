@@ -35,7 +35,7 @@ def assemblyPCA(binnedSpk, epochRef, epochTest = None, method = 'marcenko', numC
     # Compute PCA
     comp = assemblyComp(binRef,method = method, numComp = numComp)
     numComp = comp.shape[0]
-    print('PCA based assembly activation, with ' + str(numComp) + ' PCs\n')
+    print('PCA based assembly activation, using ' + str(numComp) + ' PCs\n')
 
     # Project test data onto Principal Components
     assemblyAct = assemblyProj(comp, binnedSpk, epochTest);
@@ -78,38 +78,39 @@ def assemblyComp(binRef, method = 'marcenko', numComp = None):
 
 def assemblyProj(comp, binnedSpk, epochTest = None):
     
-    # Define the DataFram column names
-    columnName = []
-    for k in range(len(comp)):
-        columnName.append("Comp%d" % k)
-     
+   
     if epochTest is None:
+        activation = assemblyProj(comp, binnedSpk, epochTest=binnedSpk.time_support) 
+
+    elif isinstance(epochTest,list):
+        # If epochTest is a list of IntervalSet, it returns a list of TsdFrame
+        assemblyAct = []
+        for n in range(len(epochTest)):
+            # If epochTest is a list of IntervalSet, we call it for each epoch
+            activation = assemblyProj(comp, binnedSpk.restrict(epochTest[n]), epochTest=epochTest[n]) 
+            assemblyAct.append(activation)
+            
+    else:
+        if not isinstance(epochTest,nap.IntervalSet):
+            raise ValueError('epochTestis not a pynapple IntervalSet object')
+         
+        # Define the DataFram column names
+        columnName = []
+        for k in range(len(comp)):
+            columnName.append("Comp%d" % k)
+         
+        #Z-score binned spike trains    
         binTest = binnedSpk.values
         zSpk = StandardScaler().fit_transform(binTest)
         activation = np.zeros((zSpk.shape[0],comp.shape[0]))
         
-        for k in range(comp):
+        # compute projection for each component
+        for k in range(comp.shape[0]):
             proj = noDiagProj(comp[k,:], zSpk)
             activation[:,k] = proj
   
         # we transform the dataFrame into a TsdFrame for compatibility with pynapple
-        assemblyAct = nap.TsdFrame(activation)   
-            
-    else:
-        assemblyAct = []
-        for n in range(len(epochTest)):
-            
-            binTest = binnedSpk.restrict(epochTest[n]).values
-            zSpk = StandardScaler().fit_transform(binTest)
-            activation = np.zeros((zSpk.shape[0],comp.shape[0]))
-            
-            for k in range(comp.shape[0]):
-                proj = noDiagProj(comp[k,:], zSpk)
-                activation[:,k] = proj
-            
-            activation = nap.TsdFrame(t = binnedSpk.restrict(epochTest[n]).times(), d = activation, columns = columnName)
-            # we append these assembly activation to assemblyAct
-            assemblyAct.append(activation)
+        assemblyAct = nap.TsdFrame(t = binnedSpk.restrict(epochTest).times(), d = activation, columns = columnName)   
             
     return assemblyAct
 
