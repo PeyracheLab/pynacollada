@@ -11,7 +11,7 @@ import pandas as pd
 from sklearn.preprocessing import StandardScaler
 import numpy as np
 
-def bayesianDecoder_1D(spike_counts, bin_size, tuning_curves):
+def bayesian_decoder_1d(spike_counts, bin_size, tuning_curves):
     
     spike_counts_array = spike_counts.values
     proba_angle = np.zeros((spike_counts.shape[0], tuning_curves.shape[0]))
@@ -30,7 +30,7 @@ def bayesianDecoder_1D(spike_counts, bin_size, tuning_curves):
 
     return decoded, proba_angle
 
-def latentDecoder_Ring(spike_counts, method='isomap', count_nor = 'sqrt'):
+def latent_decoder_ring(spike_counts, method='isomap', count_nor = 'sqrt'):
     
     from numpy import linalg as LA
     
