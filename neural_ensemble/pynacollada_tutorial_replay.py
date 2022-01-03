@@ -20,6 +20,7 @@ from sklearn.preprocessing import StandardScaler
 
 from scipy import stats
 
+from neuralensemble import assemblyPCA
 
 recDuration = 2000.; #recording duration in secs
 sessionEpoch = nap.IntervalSet(start = 0, end = recDuration, time_units = 's')
@@ -51,7 +52,10 @@ Cwake = np.corrcoef(np.transpose(binWake))
 # Let's plot the correlation matrix, excluding the diagonal elements
 mask = np.zeros_like(Cwake)
 mask[np.diag_indices_from(mask)] = True
-ax = sns.heatmap(Cwake, mask=mask)
+
+fig, axes = plt.subplots(1, 3, figsize=(15, 5))
+sns.heatmap(ax = axes[0], data = Cwake, mask=mask)
+axes[0].set_title('Correlation matrix')
 
 ### Let's start with PCA-based reactivation method
 pca = PCA()
@@ -59,13 +63,15 @@ zSpkWake = StandardScaler().fit_transform(binWake)
 pca.fit(zSpkWake)
 
 # Plot the eigenvalues. Here it's all random, should be distributed around 1
-sns.lineplot(data=pca.explained_variance_)
+sns.lineplot(ax = axes[1], data=pca.explained_variance_)
+axes[1].set_title('Eigenvalues')
 
 #And the first three eigenvectors (the PCs)
-plt.figure()
-ax = sns.heatmap(pca.components_[:3,:])
-ax.set_xlabel("Neurons", fontsize = 15)
-ax.set_ylabel("PCs", fontsize = 15)
+
+sns.heatmap(ax = axes[2], data=pca.components_[:3,:])
+axes[2].set_xlabel("Neurons", fontsize = 15)
+axes[2].set_ylabel("PCs", fontsize = 15)
+axes[2].set_title('Principal Components')
 
 # Conpute the z-scored binned spike trains durint sleep
 binSleep = binnedSpk.restrict(sleepEp).values
@@ -89,13 +95,22 @@ reactPCA = nap.TsdFrame(t=binnedSpk.restrict(sleepEp).times(), d=reactPCA, time_
 
 # Plot reactivation strength during a subset of sleepPre
 exampleEp =  nap.IntervalSet(start = [1100,1300], end = [1200,1350], time_units = 's')
-plt.figure()
-ax = sns.lineplot(data=reactPCA.restrict(exampleEp).as_units('s'))
-ax.set_ylabel("Reactivation Strength", fontsize = 15)
+
+fig, axes = plt.subplots(2, 1, figsize=(10, 10))
+sns.lineplot(ax = axes[0], data=reactPCA.restrict(exampleEp).as_units('s'))
+axes[0].set_ylabel("Reactivation Strength", fontsize = 15)
 
 # Plot reactivation strength during NREM. We intersect the two intervalSet
 exampleEp =  sleepEp.intersect(nremEp)
-plt.figure()
-ax = sns.lineplot(data=reactPCA.restrict(exampleEp).as_units('s'))
-ax.set_ylabel("Reactivation Strength", fontsize = 15)
+sns.lineplot(ax = axes[1], data=reactPCA.restrict(exampleEp).as_units('s'))
+axes[1].set_ylabel("Reactivation Strength")
 
+### Nw using the neuralensemble module
+epochTest = [];
+epochTest.append(nap.IntervalSet(start = [1100,1300], end = [1200,1350], time_units = 's'))
+epochTest.append(sleepEp.intersect(nremEp))
+reactPCA = assemblyPCA(binnedSpk, wakeEpoch, epochTest = epochTest, method = None, numComp = 3)
+
+fig, axes = plt.subplots(2, 1, figsize=(10, 10))
+sns.lineplot(ax = axes[0], data=reactPCA[0].as_units('s'))
+sns.lineplot(ax = axes[1], data=reactPCA[1].as_units('s'))
