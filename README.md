@@ -12,10 +12,11 @@ Collaborative platform for high-level analysis with pynapple.
 ## Neural Ensembles
 
 | Jupyter notebook / scripts | Description | Contributors
-| :---                       |    :----:   |          ---:
-|        blaka                    |     test        | 1
+| :---                       |    :----:   |          :---
+| [Neuralensemble_tutorial_replay1.ipynb](pynacollada/neural_ensemble/Neuralensemble_tutorial_replay1.ipynb) |     test        | Adrien Peyrache
 
 ## Manifolds
+
 
 
 ## EEG processing
@@ -25,3 +26,4 @@ Collaborative platform for high-level analysis with pynapple.
 ## Graphics
 
 ## Position tracking
+
