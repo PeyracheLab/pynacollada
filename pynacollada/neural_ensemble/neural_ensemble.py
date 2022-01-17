@@ -13,8 +13,8 @@ def assemblyPCA(spike_counts, epochRef, epochTest = None, method = 'marcenko', n
     '''
     Parameters
     ----------
-    binSpk : TsdFrame
-        DESCRIPTION.
+    spike_counts : TYPE
+        Description
     epochRef : intervalSet
         DESCRIPTION.
     epochTest : list of intervalSets
@@ -23,11 +23,16 @@ def assemblyPCA(spike_counts, epochRef, epochTest = None, method = 'marcenko', n
         DESCRIPTION. The default is 'marcenko'.
     numComp : TYPE, optional
         DESCRIPTION. The default is 3.
-
+    
     Returns
     -------
     assemblyAct, a list of TsdFrames
-
+    
+    Deleted Parameters
+    ------------------
+    binSpk : TsdFrame
+        DESCRIPTION.
+    
     '''
    
     binRef = spike_counts.restrict(epochRef).values
@@ -44,7 +49,26 @@ def assemblyPCA(spike_counts, epochRef, epochTest = None, method = 'marcenko', n
 
 
 def assemblyICA(spike_counts, epochRef, epochTest = None, method = 'marcenko', numComp = 3):
+    """Summary
     
+    Parameters
+    ----------
+    spike_counts : TYPE
+        Description
+    epochRef : TYPE
+        Description
+    epochTest : None, optional
+        Description
+    method : str, optional
+        Description
+    numComp : int, optional
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    """
     binRef = spike_counts.restrict(epochRef).values
     
     # Compute PCA
@@ -58,7 +82,27 @@ def assemblyICA(spike_counts, epochRef, epochTest = None, method = 'marcenko', n
     return assemblyAct, comp
 
 def assemblyComp(spike_counts, method = 'marcenko', numComp = None):
+    """Summary
     
+    Parameters
+    ----------
+    spike_counts : TYPE
+        Description
+    method : str, optional
+        Description
+    numComp : None, optional
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    
+    Raises
+    ------
+    ValueError
+        Description
+    """
     pca = PCA()
     zSpkRef = StandardScaler().fit_transform(spike_counts)
     pca.fit(zSpkRef)
@@ -77,8 +121,27 @@ def assemblyComp(spike_counts, method = 'marcenko', numComp = None):
     return comp
 
 def assemblyProj(comp, spike_counts, epochTest = None):
+    """Summary
     
-   
+    Parameters
+    ----------
+    comp : TYPE
+        Description
+    spike_counts : TYPE
+        Description
+    epochTest : None, optional
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    
+    Raises
+    ------
+    ValueError
+        Description
+    """
     if epochTest is None:
         activation = assemblyProj(comp, spike_counts, epochTest=spike_counts.time_support) 
 
@@ -115,7 +178,20 @@ def assemblyProj(comp, spike_counts, epochTest = None):
     return assemblyAct
 
 def noDiagProj(pc,zSpk):
+    """Summary
     
+    Parameters
+    ----------
+    pc : TYPE
+        Description
+    zSpk : TYPE
+        Description
+    
+    Returns
+    -------
+    TYPE
+        Description
+    """
     proj = np.dot(zSpk,pc)
     # some maths tricks here
     diagTerm = zSpk*np.tile(pc,(zSpk.shape[0],1))
