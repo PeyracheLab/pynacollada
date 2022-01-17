@@ -1,4 +1,4 @@
-# pynacollada
+# pynacollada :tropical_drink: :tropical_drink: :tropical_drink:
 Collaborative platform for high-level analysis with pynapple. 
 
 
