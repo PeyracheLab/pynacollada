@@ -13,7 +13,7 @@ Collaborative platform for high-level analysis with pynapple.
 
 | Jupyter notebook / scripts | Description | Contributors
 | :---                       |    :----:   |          :---
-| [Neuralensemble_tutorial_replay1.ipynb](pynacollada/neural_ensemble/Neuralensemble_tutorial_replay1.ipynb)  <br/> [pynacollada_tutorial_replay_short.py](pynacollada/neural_ensemble/pynacollada_tutorial_replay_short.py) |     test        | Adrien Peyrache
+| [Neuralensemble_tutorial_replay1.ipynb](pynacollada/neural_ensemble/Neuralensemble_tutorial_replay1.ipynb)  <br/> [pynacollada_tutorial_replay_short.py](pynacollada/neural_ensemble/pynacollada_tutorial_replay_short.py) | This script shows how to use pynapple to compute sleep reactivation, step by step. | Adrien Peyrache
 
 ## Manifolds
 
