@@ -2,7 +2,7 @@
 # @Author: gviejo
 # @Date:   2022-01-17 13:34:41
 # @Last Modified by:   gviejo
-# @Last Modified time: 2022-01-17 13:58:34
+# @Last Modified time: 2022-01-17 15:29:51
 from setuptools import setup, find_packages
 
 with open('README.md') as readme_file:
@@ -33,8 +33,6 @@ setup(
     description='Collaborative platform for high-level analysis with pynapple',
     install_requires=requirements,
     license="GNU General Public License v3",
-    # long_description='pynapple is a Python library for analysing neurophysiological data. It allows to handle time series and epochs but also to use generic functions for neuroscience such as tuning curves and cross-correlogram of spikes. It is heavily based on neuroseries.' 
-    # + '\n\n' + history,
     long_description=readme,
     include_package_data=True,
     keywords='neuroscience',
@@ -45,5 +43,4 @@ setup(
     version='v0.1.0',
     zip_safe=False,
     long_description_content_type='text/markdown'
-    # download_url='https://github.com/PeyracheLab/pynapple/archive/refs/tags/v0.2.0-alpha.0.tar.gz'
 )
