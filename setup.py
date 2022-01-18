@@ -2,7 +2,7 @@
 # @Author: gviejo
 # @Date:   2022-01-17 13:34:41
 # @Last Modified by:   gviejo
-# @Last Modified time: 2022-01-17 15:29:51
+# @Last Modified time: 2022-01-17 22:56:34
 from setuptools import setup, find_packages
 
 with open('README.md') as readme_file:
@@ -11,7 +11,8 @@ with open('README.md') as readme_file:
 
 requirements = [
 	'pynapple',
-	'scikit-learn'
+	'scikit-learn',
+    'seaborn'
 ]
 
 test_requirements = []
