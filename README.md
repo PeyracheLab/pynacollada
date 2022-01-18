@@ -24,6 +24,7 @@ Collaborative platform for high-level analysis with pynapple.
 -   Python 3.6+
 -   [pynapple](https://github.com/PeyracheLab/pynapple)
 -   scikit-learn
+-   seaborn
 
 ### Installation
 
@@ -56,7 +57,7 @@ $ pip install -e .
 
 | Jupyter notebook / scripts | Description | Contributors
 | :---                       |    :----:   |          :---
-| [Tutorial_ripple_detection.ipynb](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) <br/> [Tutorial_ripple_detection.py](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) | This script shows how to detect ripples in CA1 step by steps | Guillaume Viejo
+| [Tutorial_ripple_detection.ipynb](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) <br/> [Tutorial_ripple_detection.py](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) | This tutorial shows how to detect ripples in CA1 step by steps | Guillaume Viejo
 
 ### Brain state scoring
 
