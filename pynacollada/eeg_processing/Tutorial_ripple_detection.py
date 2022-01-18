@@ -2,20 +2,18 @@
 # @Author: gviejo
 # @Date:   2022-01-17 15:50:57
 # @Last Modified by:   gviejo
-# @Last Modified time: 2022-01-17 19:53:32
+# @Last Modified time: 2022-01-17 22:44:03
 
 import numpy as np
 import pynapple as nap
 from matplotlib.pyplot import *
-import pynacollada as pco
+import pynacollada as pyna
 
 data_directory = '/home/guillaume/pynapple/data/A2929-200711'
 
 data = nap.load_session(data_directory, 'neurosuite')
 
 sleep_ep = data.epochs['sleep']
-
-
 
 frequency = 1250.0
 
@@ -85,11 +83,11 @@ rip_tsd = data.load_nwb_timeseries('sleep_ripples')
 
 
 
-rip_ep, rip_tsd = pco.eeg_processing.detect_oscillatory_events(
-                                            lfp = lfp
-                                            epoch = sleep_ep
-                                            freq_band = (100,300)
-                                            thres_band = (1, 20)
-                                            duration_band = (0.02,0.2)
-                                            min_inter_duration = 0.0
+rip_ep1, rip_tsd1 = pyna.eeg_processing.detect_oscillatory_events(
+                                            lfp = lfp,
+                                            epoch = sleep_ep,
+                                            freq_band = (100,300),
+                                            thres_band = (1, 10),
+                                            duration_band = (0.02,0.2),
+                                            min_inter_duration = 0.02
                                             )
