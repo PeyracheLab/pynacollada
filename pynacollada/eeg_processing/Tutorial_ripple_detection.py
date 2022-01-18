@@ -2,7 +2,7 @@
 # @Author: gviejo
 # @Date:   2022-01-17 15:50:57
 # @Last Modified by:   gviejo
-# @Last Modified time: 2022-01-17 22:44:03
+# @Last Modified time: 2022-01-18 11:04:53
 
 import numpy as np
 import pynapple as nap
@@ -21,7 +21,7 @@ lfp = data.load_lfp(channel=15,extension='.eeg',frequency=frequency)
 
 lfpsleep = lfp.restrict(sleep_ep)
 
-signal = pco.eeg_processing.bandpass_filter(lfpsleep, 100, 300, frequency)
+signal = pyna.eeg_processing.bandpass_filter(lfpsleep, 100, 300, frequency)
 
 
 windowLength = 51
@@ -53,7 +53,9 @@ rip_ep = rip_ep.drop_long_intervals(maxRipLen, time_units = 'ms')
 # Round 3 : Merging ripples if inter-ripple period is too short
 minInterRippleInterval = 20 # ms
 
+
 rip_ep = rip_ep.merge_close_intervals(minInterRippleInterval, time_units = 'ms')
+
 
 rip_ep = rip_ep.reset_index(drop=True)
 
