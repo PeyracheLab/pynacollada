@@ -53,6 +53,10 @@ $ pip install -e .
 
 ### Manifolds
 
+| Jupyter notebook / scripts | Description | Contributors
+| :---                       |    :----:   |          :---
+| [Tutorial_manifold_ring.ipynb](pynacollada/neural_manifold/Tutorial_manifold_ring.ipynb) | This tutorial shows how to project a ring manifold with head-direction neurons. | Guillaume Viejo
+
 ### EEG processing
 
 | Jupyter notebook / scripts | Description | Contributors
