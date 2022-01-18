@@ -24,6 +24,7 @@ Collaborative platform for high-level analysis with pynapple.
 -   Python 3.6+
 -   [pynapple](https://github.com/PeyracheLab/pynapple)
 -   scikit-learn
+-   seaborn
 
 ### Installation
 
