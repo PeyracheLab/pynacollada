@@ -64,7 +64,7 @@ $ pip install -e .
 | :---                       |    :----:   |          :---
 | [Tutorial_ripple_detection.ipynb](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) <br/> [Tutorial_ripple_detection.py](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) | This tutorial shows how to detect ripples in CA1 step by steps | Guillaume Viejo
 
-### PSTH/PETH
+### PSTH PETH
 
 | Jupyter notebook / scripts | Description | Contributors
 | :---                       |    :----:   |          :---
