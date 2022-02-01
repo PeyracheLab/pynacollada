@@ -10,7 +10,7 @@ Collaborative platform for high-level analysis with pynapple.
     + [Neural Ensembles](#neural-ensembles)
     + [Manifolds](#manifolds)
     + [EEG processing](#eeg-processing)
-    + [PSTH/PETH](#psth)
+    + [PSTH PETH](#psth-peth)
     + [Brain state scoring](#brain-state-scoring)
     + [Graphics](#graphics)
     + [Position tracking](#position-tracking)
