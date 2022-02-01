@@ -10,6 +10,7 @@ Collaborative platform for high-level analysis with pynapple.
     + [Neural Ensembles](#neural-ensembles)
     + [Manifolds](#manifolds)
     + [EEG processing](#eeg-processing)
+    + [PSTH/PETH](#psth)
     + [Brain state scoring](#brain-state-scoring)
     + [Graphics](#graphics)
     + [Position tracking](#position-tracking)
@@ -62,6 +63,12 @@ $ pip install -e .
 | Jupyter notebook / scripts | Description | Contributors
 | :---                       |    :----:   |          :---
 | [Tutorial_ripple_detection.ipynb](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) <br/> [Tutorial_ripple_detection.py](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) | This tutorial shows how to detect ripples in CA1 step by steps | Guillaume Viejo
+
+### PSTH/PETH
+
+| Jupyter notebook / scripts | Description | Contributors
+| :---                       |    :----:   |          :---
+| [Tutorial_PETH_Ripples.ipynb](pynacollada/PSTH/Tutorial_PETH_Ripples.ipynb) | This tutorial shows how to make a peri-event time histogramm and raster plots around ripples | Guillaume Viejo
 
 ### Brain state scoring
 

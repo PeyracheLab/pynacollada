@@ -1,11 +1,8 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Tue Dec 21 21:26:51 2021
-
-@author: adrie
-"""
-
-
+# @Author: gviejo
+# @Date:   2022-01-17 14:10:40
+# @Last Modified by:   gviejo
+# @Last Modified time: 2022-01-18 17:40:08
 import pynapple as nap
 import pandas as pd
 import numpy as np

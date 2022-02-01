@@ -2,7 +2,7 @@
 # @Author: gviejo
 # @Date:   2022-01-17 15:50:57
 # @Last Modified by:   gviejo
-# @Last Modified time: 2022-01-18 11:04:53
+# @Last Modified time: 2022-01-28 13:36:40
 
 import numpy as np
 import pynapple as nap
@@ -73,11 +73,11 @@ rip_tsd = np.array(rip_tsd)
 rip_tsd = nap.Tsd(t = rip_tsd, d = rip_max, time_support = sleep_ep)
 
 # Writing for neuroscope the Intervals
-data.write_neuroscope_intervals(extension='.evt.rip.ep', isets=rip_ep, name='Ripples')
+data.write_neuroscope_intervals(extension='.rip.evt', isets=rip_ep, name='Ripples')
 
 # Saving ripples time and epochs
-# data.save_nwb_intervals(rip_ep, 'sleep_ripples')
-# data.save_nwb_timeseries(rip_tsd, 'sleep_ripples')
+data.save_nwb_intervals(rip_ep, 'sleep_ripples')
+data.save_nwb_timeseries(rip_tsd, 'sleep_ripples')
 
 # Load ripples times
 rip_ep = data.load_nwb_intervals('sleep_ripples')
