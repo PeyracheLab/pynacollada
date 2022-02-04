@@ -37,7 +37,7 @@ tmp = angle.as_series().groupby(np.digitize(angle.as_units('ms').index.values, b
 
 H = tmp.values/(2*np.pi)
 HSV = np.vstack((H, np.ones_like(H), np.ones_like(H))).T
-RGB = hsv_to_rgb(HSV)
+RGB = hsv_to_rgb(HSV[:-1])
 
 
 figure()
