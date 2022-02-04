@@ -68,7 +68,7 @@ $ pip install -e .
 
 | Jupyter notebook / scripts | Description | Contributors
 | :---                       |    :----:   |          :---
-| [Tutorial_PETH_Ripples.ipynb](pynacollada/PSTH/Tutorial_PETH_Ripples.ipynb) | This tutorial shows how to make a peri-event time histogramm and raster plots around ripples | Guillaume Viejo
+| [Tutorial_PETH_Ripples.ipynb](pynacollada/PETH/Tutorial_PETH_Ripples.ipynb) | This tutorial shows how to make a peri-event time histogramm and raster plots around ripples | Guillaume Viejo
 
 ### Brain state scoring
 
