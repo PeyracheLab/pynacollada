@@ -2,7 +2,7 @@
 # @Author: gviejo
 # @Date:   2022-01-17 23:01:05
 # @Last Modified by:   gviejo
-# @Last Modified time: 2022-01-17 23:26:35
+# @Last Modified time: 2022-02-07 18:01:14
 
 import numpy as np
 import pandas as pd
@@ -17,10 +17,10 @@ data_directory = '/home/guillaume/pynapple/data/A2929-200711'
 
 data = nap.load_session(data_directory, 'neurosuite')
 
-spikes = data.spikes.getby_category('location')['thl']
+spikes = data.spikes.getby_category('location')['adn']
 angle = data.position['ry']
 
-tuning_curves = nap.compute_1d_tuning_curves(spikes, angle, angle.time_support, 120,  minmax=(0, 2*np.pi))
+tuning_curves = nap.compute_1d_tuning_curves(spikes, angle, 120,  minmax=(0, 2*np.pi))
 
 bin_size = 0.2
 count = spikes.count(bin_size, angle.time_support)
@@ -32,8 +32,8 @@ projection = Isomap(n_components = 2, n_neighbors = 50).fit_transform(rate.value
 
 
 ep = angle.time_support
-bins = np.arange(ep.as_units('ms').start.iloc[0], ep.as_units('ms').end.iloc[-1]+bin_size, bin_size*1000)
-tmp = angle.as_series().groupby(np.digitize(angle.as_units('ms').index.values, bins)-1).mean()
+bins = np.arange(ep.as_units('s').start.iloc[0], ep.as_units('s').end.iloc[-1]+bin_size, bin_size)
+tmp = angle.as_units('s').groupby(np.digitize(angle.as_units('s').index.values, bins)-1).mean()
 
 H = tmp.values/(2*np.pi)
 HSV = np.vstack((H, np.ones_like(H), np.ones_like(H))).T
