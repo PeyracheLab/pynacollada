@@ -2,7 +2,7 @@
 # @Author: gviejo
 # @Date:   2022-01-17 14:10:40
 # @Last Modified by:   gviejo
-# @Last Modified time: 2022-01-17 19:52:39
+# @Last Modified time: 2022-02-07 17:38:51
 import numpy as np
 import pynapple as nap
 from scipy.signal import butter, lfilter, filtfilt
@@ -101,7 +101,7 @@ def detect_oscillatory_events(lfp, epoch, freq_band, thres_band, duration_band, 
     window = np.ones(wsize)/wsize
     nSS = filtfilt(window, 1, squared_signal)
     nSS = (nSS - np.mean(nSS))/np.std(nSS)
-    nSS = nap.Tsd(t = signal.index.values, d = nSS, time_support = epoch)
+    nSS = nap.Tsd(t = signal.index.values, d=nSS, time_support=epoch, time_units='us')
 
     # Round1 : Detecting Oscillation Periods by thresholding normalized signal
     nSS2 = nSS.threshold(thres_band[0], method='above')
@@ -127,7 +127,7 @@ def detect_oscillatory_events(lfp, epoch, freq_band, thres_band, duration_band, 
     osc_max = np.array(osc_max)
     osc_tsd = np.array(osc_tsd)
 
-    osc_tsd = nap.Tsd(t = osc_tsd, d = osc_max, time_support = epoch)
+    osc_tsd = nap.Tsd(t=osc_tsd, d=osc_max, time_support=epoch, time_units='us')
 
     return osc_ep, osc_tsd
 
