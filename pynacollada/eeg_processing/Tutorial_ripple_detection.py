@@ -2,7 +2,7 @@
 # @Author: gviejo
 # @Date:   2022-01-17 15:50:57
 # @Last Modified by:   gviejo
-# @Last Modified time: 2022-02-07 17:40:27
+# @Last Modified time: 2022-04-11 17:46:22
 
 import numpy as np
 import pynapple as nap
@@ -32,7 +32,7 @@ squared_signal = np.square(signal.values)
 window = np.ones(windowLength)/windowLength
 nSS = filtfilt(window, 1, squared_signal)
 nSS = (nSS - np.mean(nSS))/np.std(nSS)
-nSS = nap.Tsd(t = signal.index.values, d = nSS, time_support = signal.time_support, time_units = 'us')
+nSS = nap.Tsd(t = signal.index.values, d = nSS, time_support = signal.time_support)
 
 
 # Round1 : Detecting Ripple Periods by thresholding normalized signal
@@ -68,7 +68,7 @@ for s, e in rip_ep.values:
 rip_max = np.array(rip_max)
 rip_tsd = np.array(rip_tsd)
 
-rip_tsd = nap.Tsd(t = rip_tsd, d = rip_max, time_support = sleep_ep, time_units='us')
+rip_tsd = nap.Tsd(t = rip_tsd, d = rip_max, time_support = sleep_ep)
 
 # Writing for neuroscope the Intervals
 data.write_neuroscope_intervals(extension='.rip.evt', isets=rip_ep, name='Ripples')

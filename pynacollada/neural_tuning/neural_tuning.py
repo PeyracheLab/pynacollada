@@ -208,7 +208,7 @@ def computeSpeed(position, ep, bin_size = 0.1):
 
 #########################################################
 # INTERPOLATION
-#########################################################
+# ########################################################
 def interpolate(z, x, y, inter, bbox = None):	
 	import scipy.interpolate
 	xnew = np.arange(x.min(), x.max()+inter, inter)
