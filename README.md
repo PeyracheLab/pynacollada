@@ -70,9 +70,15 @@ $ pip install -e .
 | :---                       |    :----:   |          :---
 | [Tutorial_PETH_Ripples.ipynb](pynacollada/PETH/Tutorial_PETH_Ripples.ipynb) | This tutorial shows how to make a peri-event time histogramm and raster plots around ripples | Guillaume Viejo
 
+### Position tracking
+
+| Jupyter notebook / scripts | Description | Contributors
+| :---                       |    :----:   |          :---
+| [Tutorial_DeepLabCut_Path_Segmentation.ipynb](pynacollada/position_tracking/DLC_process_position.ipynb) | This tutorial shows how to segment the path of a mouse running in a radial-arm maze with position extracted with DeepLabCut. | Dhruv Mehrotra
+
 ### Brain state scoring
 
 ### Graphics
 
-### Position tracking
+
 
