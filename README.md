@@ -46,39 +46,13 @@ $ pip install -e .
 ```
 
 ## Libraries
-### Neural Ensembles
 
-| Jupyter notebook / scripts | Description | Contributors
-| :---                       |    :----:   |          :---
-| [Neuralensemble_tutorial_replay1.ipynb](pynacollada/neural_ensemble/Neuralensemble_tutorial_replay1.ipynb)  <br/> [pynacollada_tutorial_replay_short.py](pynacollada/neural_ensemble/pynacollada_tutorial_replay_short.py) | This script shows how to use pynapple to compute sleep reactivation, step by step. | Adrien Peyrache
-
-### Manifolds
-
-| Jupyter notebook / scripts | Description | Contributors
-| :---                       |    :----:   |          :---
-| [Tutorial_manifold_ring.ipynb](pynacollada/neural_manifold/Tutorial_manifold_ring.ipynb) | This tutorial shows how to project a ring manifold with head-direction neurons. | Guillaume Viejo
-
-### EEG processing
-
-| Jupyter notebook / scripts | Description | Contributors
-| :---                       |    :----:   |          :---
-| [Tutorial_ripple_detection.ipynb](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) <br/> [Tutorial_ripple_detection.py](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) | This tutorial shows how to detect ripples in CA1 step by steps | Guillaume Viejo
-
-### PETH
-
-| Jupyter notebook / scripts | Description | Contributors
-| :---                       |    :----:   |          :---
-| [Tutorial_PETH_Ripples.ipynb](pynacollada/PETH/Tutorial_PETH_Ripples.ipynb) | This tutorial shows how to make a peri-event time histogramm and raster plots around ripples | Guillaume Viejo
-
-### Position tracking
-
-| Jupyter notebook / scripts | Description | Contributors
-| :---                       |    :----:   |          :---
-| [Tutorial_DeepLabCut_Path_Segmentation.ipynb](pynacollada/position_tracking/DLC_process_position.ipynb) | This tutorial shows how to segment the path of a mouse running in a radial-arm maze with position extracted with DeepLabCut. | Dhruv Mehrotra
-
-### Brain state scoring
-
-### Graphics
-
+|                         | **Jupyter notebook / scripts**                                                                                                                                                                                             | **Description**                                                                                          | **Contributors** |
+|-------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------|------------------|
+| **_Neural Ensembles_**  | [Neuralensemble_tutorial_replay1.ipynb](pynacollada/neural_ensemble/Neuralensemble_tutorial_replay1.ipynb)  <br/> [pynacollada_tutorial_replay_short.py](pynacollada/neural_ensemble/pynacollada_tutorial_replay_short.py) | How to use pynapple to compute sleep reactivation, step by step.                                         | Adrien Peyrache  |
+| **_Manifolds_**         | [Tutorial_manifold_ring.ipynb](pynacollada/neural_manifold/Tutorial_manifold_ring.ipynb)                                                                                                                                   | How to project a ring manifold with head-direction neurons.                                              | Guillaume Viejo  |
+| **_EEG processing_**    | [Tutorial_ripple_detection.ipynb](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb) <br/> [Tutorial_ripple_detection.py](pynacollada/eeg_processing/Tutorial_ripple_detection.ipynb)                             | How to detect ripples in CA1 step by steps.                                                              | Guillaume Viejo  |
+| **_PETH_**              | [Tutorial_PETH_Ripples.ipynb](pynacollada/PETH/Tutorial_PETH_Ripples.ipynb)                                                                                                                                                | How to make a peri-event time histogramm and raster plots around ripples.                                | Guillaume Viejo  |
+| **_Position tracking_** | [Tutorial_DeepLabCut_Path_Segmentation.ipynb](pynacollada/position_tracking/DLC_process_position.ipynb)                                                                                                                    | How to segment the path of a mouse running in a radial-arm maze with position extracted with DeepLabCut. | Dhruv Mehrotra   |
 
 
