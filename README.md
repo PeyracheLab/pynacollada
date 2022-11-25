@@ -15,6 +15,8 @@ Collaborative platform for high-level analysis with pynapple.
     + [Graphics](#graphics)
     + [Position tracking](#position-tracking)
 
+> **Note**
+> See the analysis of the pynapple paper [here](https://github.com/PeyracheLab/pynacollada/tree/main/pynacollada/Pynapple%20Paper%20Figures)
 
 
 ## Getting Started
@@ -55,4 +57,5 @@ $ pip install -e .
 | **_PETH_**              | [Tutorial_PETH_Ripples.ipynb](pynacollada/PETH/Tutorial_PETH_Ripples.ipynb)                                                                                                                                                | How to make a peri-event time histogramm and raster plots around ripples.                                | Guillaume Viejo  |
 | **_Position tracking_** | [Tutorial_DeepLabCut_Path_Segmentation.ipynb](pynacollada/position_tracking/DLC_process_position.ipynb)                                                                                                                    | How to segment the path of a mouse running in a radial-arm maze with position extracted with DeepLabCut. | Dhruv Mehrotra   |
 | **_Waveform processing_** | [load_mean_waveforms.ipynb](pynacollada/waveform_processing/load_mean_waveforms.ipynb)                                                                                                                    | How to extract the mean waveforms from a binary file. | Sofia Skromne Carrasco   |
+
 
