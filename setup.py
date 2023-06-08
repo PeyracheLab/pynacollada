@@ -5,8 +5,8 @@
 # @Last Modified time: 2022-01-17 22:56:34
 from setuptools import setup, find_packages
 
-with open('README.md') as readme_file:
-	readme = readme_file.read()
+#with open('README.md') as readme_file:
+#	readme = readme_file.read()
 
 
 requirements = [
@@ -34,7 +34,7 @@ setup(
     description='Collaborative platform for high-level analysis with pynapple',
     install_requires=requirements,
     license="GNU General Public License v3",
-    long_description=readme,
+    long_description="",
     include_package_data=True,
     keywords='neuroscience',
     name='pynacollada',
