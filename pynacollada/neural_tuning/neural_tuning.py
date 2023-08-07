@@ -183,7 +183,7 @@ def centerTuningCurves(tcurve):
 # copied to neural_tuning
 def offsetTuningCurves(tcurve, diffs):
 	"""
-	offseting tuning curves synced by diff
+	offsetting tuning curves synced by diff
 	"""	
 	new_tcurve 		= []
 	for p in tcurve.columns:	
