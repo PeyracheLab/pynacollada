@@ -2,7 +2,7 @@
 # @Author: gviejo
 # @Date:   2022-01-17 14:10:40
 # @Last Modified by:   gviejo
-# @Last Modified time: 2022-04-11 17:57:39
+# @Last Modified time: 2023-10-27 16:23:54
 import numpy as np
 import pynapple as nap
 from scipy.signal import butter, lfilter, filtfilt
@@ -45,8 +45,8 @@ def bandpass_filter(data, lowcut, highcut, fs, order=4):
     time_index = data.as_units('s').index.values
     if type(data) is nap.TsdFrame:
         tmp = np.zeros(data.shape)
-        for i,c in enumerate(data.columns):
-            tmp[:,i] = bandpass_filter(data[c], lowcut, highcut, fs, order)
+        for i in np.arange(data.shape[1]):
+            tmp[:,i] = bandpass_filter(data[:,i], lowcut, highcut, fs, order)
 
         return nap.TsdFrame(
             t = time_index,
