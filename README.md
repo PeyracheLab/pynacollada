@@ -1,3 +1,6 @@
+
+# This repository is not maintained anymore. To learn how to use `pynapple`, you can check its [documentation](https://pynapple-org.github.io/pynapple/generated/gallery/)
+
 # pynacollada 🍍 🥥 🍹
 Collaborative platform for high-level analysis with pynapple. 
 
