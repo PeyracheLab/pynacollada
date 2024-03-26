@@ -119,9 +119,9 @@ def detect_oscillatory_events(lfp, epoch, freq_band, thres_band, duration_band, 
     # Round 4: Extracting Oscillation peak
     osc_max = []
     osc_tsd = []
-    for i in range(len(osc_ep)):
-        s,e=osc_ep.loc[i]
-        tmp = nSS[np.argmin(np.abs(nSS.t - s)):np.argmin(np.abs(nSS.t - e))]
+    
+    for i in osc_ep.index.values:
+        tmp = nSS.restrict(osc_ep.loc[[i]])
         osc_tsd.append(tmp.t[np.argmax(tmp)])
         osc_max.append(np.max(tmp))
 
