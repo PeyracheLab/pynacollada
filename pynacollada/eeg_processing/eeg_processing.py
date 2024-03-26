@@ -103,26 +103,27 @@ def detect_oscillatory_events(lfp, epoch, freq_band, thres_band, duration_band, 
     nSS = (nSS - np.mean(nSS))/np.std(nSS)
     nSS = nap.Tsd(t = signal.index.values, d=nSS, time_support=epoch)
 
-    # Round1 : Detecting Oscillation Periods by thresholding normalized signal
+    # Round 1: Detecting Oscillation Periods by thresholding normalized signal
     nSS2 = nSS.threshold(thres_band[0], method='above')
     nSS3 = nSS2.threshold(thres_band[1], method='below')
 
-    # Round 2 : Excluding oscillation whose length < min_duration and greater than max_duration
+    # Round 2: Excluding oscillation whose length < min_duration and greater than max_duration
     osc_ep = nSS3.time_support
     osc_ep = osc_ep.drop_short_intervals(duration_band[0], time_units = 's')
     osc_ep = osc_ep.drop_long_intervals(duration_band[1], time_units = 's')
 
-    # Round 3 : Merging oscillation if inter-oscillation period is too short
+    # Round 3: Merging oscillation if inter-oscillation period is too short
     osc_ep = osc_ep.merge_close_intervals(min_inter_duration, time_units = 's')
     osc_ep = osc_ep.reset_index(drop=True)
 
-    # Extracting Oscillation peak
+    # Round 4: Extracting Oscillation peak
     osc_max = []
     osc_tsd = []
-    for s, e in osc_ep.values:
-        tmp = nSS.loc[s:e]
-        osc_tsd.append(tmp.idxmax())
-        osc_max.append(tmp.max())
+    
+    for i in osc_ep.index.values:
+        tmp = nSS.restrict(osc_ep.loc[[i]])
+        osc_tsd.append(tmp.t[np.argmax(tmp)])
+        osc_max.append(np.max(tmp))
 
     osc_max = np.array(osc_max)
     osc_tsd = np.array(osc_tsd)
