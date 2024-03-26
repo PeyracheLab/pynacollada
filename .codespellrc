@@ -1,0 +1,4 @@
+[codespell]
+skip = .git,*.pdf,*.svg
+ignore-regex = ^\s*"image/\S+": ".*
+ignore-words-list = adn

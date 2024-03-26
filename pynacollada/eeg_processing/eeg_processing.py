@@ -64,7 +64,7 @@ def bandpass_filter(data, lowcut, highcut, fs, order=4):
             time_units='s')
 
     else:
-        raise RuntimeError("Unknow format. Should be Tsd/TsdFrame")
+        raise RuntimeError("Unknown format. Should be Tsd/TsdFrame")
 
 def detect_oscillatory_events(lfp, epoch, freq_band, thres_band, duration_band, min_inter_duration, wsize=51):
     """
@@ -85,7 +85,7 @@ def detect_oscillatory_events(lfp, epoch, freq_band, thres_band, duration_band, 
     min_inter_duration : float
         The minimum duration between two events otherwise they are merged (in seconds)
     wsize : int, optional
-        The size of the window for digitial filtering
+        The size of the window for digital filtering
     
     Returns
     -------
@@ -145,7 +145,7 @@ def detect_oscillatory_events(lfp, epoch, freq_band, thres_band, duration_band, 
 
 # def getPeaksandTroughs(lfp, min_points):
 #   """  
-#       At 250Hz (1250/5), 2 troughs cannont be closer than 20 (min_points) points (if theta reaches 12Hz);     
+#       At 250Hz (1250/5), 2 troughs cannot be closer than 20 (min_points) points (if theta reaches 12Hz);     
 #   """
 #   import scipy.signal
 #   if isinstance(lfp, nap.time_series.Tsd):
